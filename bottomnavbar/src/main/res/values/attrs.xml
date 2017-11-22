@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomNavBar">
+        <attr name="secondary_txt_color" format="color"/>
+        <attr name="primary_txt_color" format="color"/>
+        <attr name="primary_btn_bg" format="color"/>
+        <attr name="line_color" format="color"/>
+        <attr name="strip_bg" format="color"/>
+    </declare-styleable>
+</resources>
