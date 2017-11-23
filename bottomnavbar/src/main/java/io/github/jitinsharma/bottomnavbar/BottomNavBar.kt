@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.bottom_nav_bar.view.*
 class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attrs) {
     private var weight : Float = 20.0f
     private var itemSize : Int = 0
-    private var properties : CustomProps = CustomProps()
+    private val properties : CustomProps = CustomProps()
 
     init {
         val typedArray = context.theme.obtainStyledAttributes(

@@ -10,7 +10,6 @@ import io.github.jitinsharma.bottomnavbar.BottomNavBar
 import io.github.jitinsharma.bottomnavbar.model.NavObject
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
