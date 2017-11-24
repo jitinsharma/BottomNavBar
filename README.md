@@ -29,7 +29,8 @@ bottomBar.init(NavObject(
                 name = "Settings",
                 image = this.getDrawable(R.drawable.ic_settings_black_24dp))
 )) { position, primaryClicked ->
-    makeTopSnackBar("Index: $position Primary: $primaryClicked")
+    // position returns position of secondary button clicked
+    // primaryClicked returns true if primary button is cliked
 }
 ```
 
