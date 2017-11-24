@@ -6,7 +6,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.widget.FrameLayout
-import io.github.jitinsharma.bottomnavbar.BottomNavBar
 import io.github.jitinsharma.bottomnavbar.model.NavObject
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val bottomBar = findViewById<BottomNavBar>(R.id.bottomBar)
         bottomBar.init(NavObject(
                 name = "Search",
                 image = ContextCompat.getDrawable(this, R.drawable.ic_flight_black_24dp)
