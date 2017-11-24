@@ -87,6 +87,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
 
         primaryButton.setOnClickListener {
             listener(-1, true)
+            resetColoredItem(-2)
             val animation = AnimationUtils.loadAnimation(context, R.anim.bounce)
             val intepolator = BounceInterpolator(0.2, 20.0)
             animation.interpolator = intepolator

@@ -30,7 +30,8 @@ bottomBar.init(NavObject(
                 image = this.getDrawable(R.drawable.ic_settings_black_24dp))
 )) { position, primaryClicked ->
     // position returns position of secondary button clicked
-    // primaryClicked returns true if primary button is cliked
+    // primaryClicked returns true if primary button is clicked
+    // and position returned is -1
 }
 ```
 

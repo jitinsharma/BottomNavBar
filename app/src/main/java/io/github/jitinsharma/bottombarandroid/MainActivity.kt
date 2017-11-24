@@ -1,7 +1,9 @@
 package io.github.jitinsharma.bottombarandroid
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
@@ -15,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomBar.init(NavObject(
-                name = "Search",
+                name = "Flights",
                 image = ContextCompat.getDrawable(this, R.drawable.ic_flight_black_24dp)
         ), arrayListOf(
                 NavObject(
@@ -31,7 +33,13 @@ class MainActivity : AppCompatActivity() {
                         name = "Settings",
                         image = this.getDrawable(R.drawable.ic_settings_black_24dp))
         )) { position, primaryClicked ->
-            makeTopSnackBar("Index: $position Primary: $primaryClicked")
+            when(position) {
+                0 -> showFragment("Hotel")
+                1 -> showFragment("Chat")
+                2 -> showFragment("Profile")
+                3 -> showFragment("Settings")
+                else -> if (primaryClicked) showFragment("Flights")
+            }
         }
     }
 
@@ -43,5 +51,14 @@ class MainActivity : AppCompatActivity() {
         params.gravity = Gravity.TOP
         view.layoutParams = params
         snack.show()
+    }
+
+    @SuppressLint("PrivateResource")
+    private fun showFragment(displayString : String) {
+        val fragment : Fragment = SomeFragment.newInstance(displayString)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction
+                .replace(R.id.container, fragment)
+                .commit()
     }
 }
