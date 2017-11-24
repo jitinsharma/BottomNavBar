@@ -10,7 +10,8 @@ A bottom navigation bar for Android with a primary floating button
 
 # Usage
 
-    val bottomBar = findViewById<BottomNavBar>(R.id.bottomBar)
+```kotlin
+val bottomBar = findViewById<BottomNavBar>(R.id.bottomBar)
             bottomBar.init(NavObject(
                     name = "Search",
                     image = ContextCompat.getDrawable(this, R.drawable.ic_flight_black_24dp)
@@ -31,3 +32,4 @@ A bottom navigation bar for Android with a primary floating button
                 // position for secondary buttons
                 // primaryClicked for primary button click
             }
+```
