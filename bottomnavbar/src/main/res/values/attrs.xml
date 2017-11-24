@@ -6,5 +6,6 @@
         <attr name="primary_btn_bg" format="color"/>
         <attr name="line_color" format="color"/>
         <attr name="strip_bg" format="color"/>
+        <attr name="secondary_item_clicked" format="color"/>
     </declare-styleable>
 </resources>

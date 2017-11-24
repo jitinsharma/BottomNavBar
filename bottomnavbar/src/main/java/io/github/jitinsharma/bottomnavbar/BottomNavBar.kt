@@ -3,6 +3,7 @@ package io.github.jitinsharma.bottomnavbar
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.support.constraint.ConstraintLayout
@@ -11,7 +12,10 @@ import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import io.github.jitinsharma.bottomnavbar.model.CustomProps
 import io.github.jitinsharma.bottomnavbar.model.NavObject
@@ -25,6 +29,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
     private var weight : Float = 20.0f
     private var itemSize : Int = 0
     private val properties : CustomProps = CustomProps()
+    private var coloredItemIndex : Int = -1
 
     init {
         val typedArray = context.theme.obtainStyledAttributes(
@@ -47,6 +52,9 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         properties.stripBg = typedArray.getColor(
                 R.styleable.BottomNavBar_strip_bg,
                 Color.WHITE)
+        properties.secondaryItemClickedColor = typedArray.getColor(
+                R.styleable.BottomNavBar_secondary_item_clicked,
+                -1)
     }
 
     fun init(primaryNavObject: NavObject,
@@ -66,6 +74,10 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         for (k in 0 until itemStrip.childCount) {
             val child = itemStrip.getChildAt(k)
             child.setOnClickListener {
+                if (properties.secondaryItemClickedColor != -1) {
+                    resetColoredItem(k)
+                    setColorToCurrentItem(child)
+                }
                 when {
                     k > itemSize/2 -> listener(k-1,false)
                     else -> listener(k,false)
@@ -75,9 +87,32 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
 
         primaryButton.setOnClickListener {
             listener(-1, true)
+            val animation = AnimationUtils.loadAnimation(context, R.anim.bounce)
+            val intepolator = BounceInterpolator(0.2, 20.0)
+            animation.interpolator = intepolator
+            primaryButton.startAnimation(animation)
         }
         primaryText.setOnClickListener {
             listener(-1, true)
+        }
+    }
+
+    private fun setColorToCurrentItem(child : View) {
+        coloredItemIndex = itemStrip.indexOfChild(child)
+        val layout = child as LinearLayout
+        val image = layout.findViewById<ImageView>(R.id.navItemImage)
+        val text = layout.findViewById<TextView>(R.id.navItemText)
+        text.setTextColor(properties.secondaryItemClickedColor)
+        image.setColorFilter(properties.secondaryItemClickedColor, PorterDuff.Mode.SRC_ATOP)
+    }
+
+    private fun resetColoredItem(currentItemIndex : Int) {
+        if (currentItemIndex != coloredItemIndex && coloredItemIndex != -1) {
+            val layout = itemStrip.getChildAt(coloredItemIndex) as LinearLayout
+            val image = layout.findViewById<ImageView>(R.id.navItemImage)
+            val text = layout.findViewById<TextView>(R.id.navItemText)
+            text.setTextColor(properties.secondaryTextColor)
+            image.setColorFilter(properties.secondaryTextColor, PorterDuff.Mode.SRC_ATOP)
         }
     }
 

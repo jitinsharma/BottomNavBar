@@ -7,6 +7,12 @@
     android:id="@+id/parentView"
     tools:context="io.github.jitinsharma.bottombarandroid.MainActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_red_light">
+    </FrameLayout>
+
     <io.github.jitinsharma.bottomnavbar.BottomNavBar
         android:id="@+id/bottomBar"
         android:layout_width="0dp"
@@ -18,8 +24,8 @@
         app:primary_txt_color="@color/colorPrimaryDark"
         app:primary_btn_bg="@color/colorPrimary"
         app:secondary_txt_color="@color/colorAccent"
-        app:line_color="@color/colorPrimaryDark"
-        app:strip_bg="#FFFF00">
+        app:secondary_item_clicked="@color/clickColor"
+        app:line_color="@color/colorPrimaryDark">
     </io.github.jitinsharma.bottomnavbar.BottomNavBar>
 
 </android.support.constraint.ConstraintLayout>

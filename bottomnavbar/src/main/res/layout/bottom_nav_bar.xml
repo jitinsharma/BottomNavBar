@@ -2,14 +2,13 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainLayout"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="96dp">
+    android:layout_height="104dp">
 
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="1dp"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="31dp"
         android:background="@android:color/black"
@@ -43,7 +42,6 @@
         android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Primary"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
