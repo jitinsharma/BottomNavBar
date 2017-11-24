@@ -32,3 +32,17 @@ bottomBar.init(NavObject(
     makeTopSnackBar("Index: $position Primary: $primaryClicked")
 }
 ```
+
+
+```xml
+<io.github.jitinsharma.bottomnavbar.BottomNavBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:primary_txt_color="@color/colorPrimaryDark"
+        app:primary_btn_bg="@color/colorPrimary"
+        app:secondary_txt_color="@color/colorAccent"
+        app:secondary_item_clicked="@color/clickColor"
+        app:line_color="@color/colorPrimaryDark">
+</io.github.jitinsharma.bottomnavbar.BottomNavBar>
+```
