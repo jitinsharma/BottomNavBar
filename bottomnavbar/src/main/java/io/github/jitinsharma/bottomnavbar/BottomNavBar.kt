@@ -55,22 +55,28 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         properties.secondaryItemClickedColor = typedArray.getColor(
                 R.styleable.BottomNavBar_secondary_item_clicked,
                 -1)
+        inflate()
+    }
+
+    private fun inflate() {
+        val layoutInflater : LayoutInflater = context.
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        layoutInflater.inflate(R.layout.bottom_nav_bar, this, true)
     }
 
     fun init(primaryNavObject: NavObject,
              secondaryNavObjects: List<NavObject>,
              listener : (position : Int, primaryClicked : Boolean) -> Unit) {
-
-        val layoutInflater : LayoutInflater = context.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        layoutInflater.inflate(R.layout.bottom_nav_bar, this, true)
-
         setSizeVariables(secondaryNavObjects)
         setItemStrip()
-        setPrimaryItem(primaryNavObject)
-        addNavItems(secondaryNavObjects)
+        setUpPrimaryItem(primaryNavObject)
+        setUpSecondaryItems(secondaryNavObjects)
         addDummyView()
+        setUpPrimaryItemListener(listener)
+        setUpSecondaryItemListener(listener)
+    }
 
+    private fun setUpSecondaryItemListener(listener: (position: Int, primaryClicked: Boolean) -> Unit) {
         for (k in 0 until itemStrip.childCount) {
             val child = itemStrip.getChildAt(k)
             child.setOnClickListener {
@@ -84,13 +90,15 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
                 }
             }
         }
+    }
 
+    private fun setUpPrimaryItemListener(listener: (position: Int, primaryClicked: Boolean) -> Unit) {
         primaryButton.setOnClickListener {
             listener(-1, true)
             resetColoredItem(-2)
             val animation = AnimationUtils.loadAnimation(context, R.anim.bounce)
-            val intepolator = BounceInterpolator(0.2, 20.0)
-            animation.interpolator = intepolator
+            val bounceInterpolator = BounceInterpolator(0.2, 20.0)
+            animation.interpolator = bounceInterpolator
             primaryButton.startAnimation(animation)
         }
         primaryText.setOnClickListener {
@@ -132,23 +140,23 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
 
     private fun setItemStrip() {
         itemStrip.setBackgroundColor(properties.stripBg)
-        aboveLollipop {
+        lollipopAndAbove {
             mainLayout.elevation = 8.toPx()
         }
     }
 
-    private fun setPrimaryItem(primaryNavObject: NavObject) {
+    private fun setUpPrimaryItem(primaryNavObject: NavObject) {
         primaryText.text = primaryNavObject.name
         primaryButton.setImageDrawable(primaryNavObject.image)
         val gradient : GradientDrawable = primaryButton.background as GradientDrawable
         gradient.setColor(properties.primaryButtonBg)
         primaryText.setTextColor(properties.primaryTextColor)
-        aboveLollipop {
+        lollipopAndAbove {
             primaryButton.elevation = 8.toPx()
         }
     }
 
-    private fun addNavItems(navObjects : List<NavObject>) {
+    private fun setUpSecondaryItems(navObjects : List<NavObject>) {
         navObjects.forEach { navObject : NavObject ->
             val navItem = NavItem(context, null)
             val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(0,
@@ -178,7 +186,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         return Math.round(this * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).toFloat()
     }
 
-    private inline fun aboveLollipop(body : () -> Unit) {
+    private inline fun lollipopAndAbove(body : () -> Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             body()
         }
