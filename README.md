@@ -1,5 +1,7 @@
 # BottomNavBar
 
+[![Build Status](https://travis-ci.org/jitinsharma/BottomNavBar.svg?branch=master)](https://travis-ci.org/jitinsharma/BottomNavBar)
+
 A bottom navigation bar for Android with a primary floating button
 
 ![](./docs/bar.gif)
