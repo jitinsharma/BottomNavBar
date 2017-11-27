@@ -2,12 +2,9 @@ package io.github.jitinsharma.bottombarandroid
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
-import android.widget.FrameLayout
 import io.github.jitinsharma.bottomnavbar.model.NavObject
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -41,16 +38,6 @@ class MainActivity : AppCompatActivity() {
                 else -> if (primaryClicked) showFragment("Flights")
             }
         }
-    }
-
-    private fun makeTopSnackBar(message : String) {
-        val snack = Snackbar.make(parentView, message,
-                Snackbar.LENGTH_SHORT)
-        val view = snack.view
-        val params = view.layoutParams as FrameLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        view.layoutParams = params
-        snack.show()
     }
 
     @SuppressLint("PrivateResource")

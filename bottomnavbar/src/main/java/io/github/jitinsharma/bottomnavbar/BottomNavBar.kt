@@ -55,6 +55,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         properties.secondaryItemClickedColor = typedArray.getColor(
                 R.styleable.BottomNavBar_secondary_item_clicked,
                 -1)
+        typedArray.recycle()
         inflate()
     }
 
