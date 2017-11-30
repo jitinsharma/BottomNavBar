@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.bottom_nav_bar.view.*
 /**
  * Created by jsharma on 22/11/17.
  */
+@Suppress("MemberVisibilityCanPrivate")
 @SuppressLint("NewApi")
 class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attrs) {
     private var weight : Float = 20.0f
@@ -37,24 +38,24 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
                 R.styleable.BottomNavBar,
                 0,0
         )
-        properties.secondaryTextColor = typedArray.getColor(
+        setSecondaryTextColor(typedArray.getColor(
                 R.styleable.BottomNavBar_secondary_txt_color,
-                Color.BLACK)
-        properties.primaryTextColor = typedArray.getColor(
+                Color.BLACK))
+        setPrimaryTextColor(typedArray.getColor(
                 R.styleable.BottomNavBar_primary_txt_color,
-                Color.BLACK)
-        properties.primaryButtonBg = typedArray.getColor(
+                Color.BLACK))
+        setPrimaryButtonBackground(typedArray.getColor(
                 R.styleable.BottomNavBar_primary_btn_bg,
-                Color.BLACK)
-        properties.lineColor = typedArray.getColor(
+                Color.BLACK))
+        setLineColor(typedArray.getColor(
                 R.styleable.BottomNavBar_line_color,
-                Color.BLACK)
-        properties.stripBg = typedArray.getColor(
+                Color.BLACK))
+        setStripBackground(typedArray.getColor(
                 R.styleable.BottomNavBar_strip_bg,
-                Color.WHITE)
-        properties.secondaryItemClickedColor = typedArray.getColor(
+                Color.WHITE))
+        setSecondaryItemClickedColor(typedArray.getColor(
                 R.styleable.BottomNavBar_secondary_item_clicked,
-                -1)
+                -1))
         typedArray.recycle()
         inflate()
     }
@@ -65,6 +66,13 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         layoutInflater.inflate(R.layout.bottom_nav_bar, this, true)
     }
 
+    /**
+     * Primary initialization function
+     * @param primaryNavObject - Object for center/floating button
+     * @param secondaryNavObjects - List of objects for other buttons on the strip. The size of this list should be 2 or 4
+     * @param listener - Callback for button click
+     *
+     */
     fun init(primaryNavObject: NavObject,
              secondaryNavObjects: List<NavObject>,
              listener : (position : Int, primaryClicked : Boolean) -> Unit) {
@@ -181,6 +189,38 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         navItem.isClickable = false
         itemStrip.addView(navItem, itemSize/2)
     }
+
+    /**
+     * Setters
+     */
+
+    fun setSecondaryTextColor(color : Int) {
+        properties.secondaryTextColor = color
+    }
+
+    fun setPrimaryTextColor(color : Int) {
+        properties.primaryTextColor = color
+    }
+
+    fun setPrimaryButtonBackground(color : Int) {
+        properties.primaryButtonBg = color
+    }
+
+    fun setLineColor(color : Int) {
+        properties.lineColor = color
+    }
+
+    fun setStripBackground(color : Int) {
+        properties.stripBg = color
+    }
+
+    fun setSecondaryItemClickedColor(color : Int) {
+        properties.secondaryItemClickedColor = color
+    }
+
+    /**
+     * Utility functions
+     */
 
     private fun Int.toPx(): Float {
         val displayMetrics = context.resources.displayMetrics
