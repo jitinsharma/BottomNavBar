@@ -1,7 +1,6 @@
 # BottomNavBar
 
 [![Build Status](https://travis-ci.org/jitinsharma/BottomNavBar.svg?branch=master)](https://travis-ci.org/jitinsharma/BottomNavBar)
-[ ![Download](https://api.bintray.com/packages/jitinsharma/bottomnavbar/bottomnavbar/images/download.svg) ](https://bintray.com/jitinsharma/bottomnavbar/bottomnavbar/_latestVersion)
 
 A bottom navigation bar for Android with a primary floating button
 
@@ -14,10 +13,13 @@ A bottom navigation bar for Android with a primary floating button
 # Integration
 
 Artifacts are available at jcenter.
+
+[![Download](https://api.bintray.com/packages/jitinsharma/bottomnavbar/bottomnavbar/images/download.svg) ](https://bintray.com/jitinsharma/bottomnavbar/bottomnavbar/_latestVersion)
+
 Add following dependency
 
 ```gradle
-compile 'io.github.jitinsharma:bottomnavbar:0.0.x'
+compile 'io.github.jitinsharma:bottomnavbar:x.y.z'
 ```
 
 # Usage
