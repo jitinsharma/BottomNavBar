@@ -4,7 +4,7 @@
 
 A bottom navigation bar for Android with a primary floating button
 
-![](./docs/bar.gif)
+![](./docs/fullscreen.gif)
 
 ![Option 1](./docs/option_1.png)
 
@@ -12,7 +12,7 @@ A bottom navigation bar for Android with a primary floating button
 
 # Integration
 
-Artifacts are available at jcenter
+Artifacts are available at jcenter.
 Add following dependency
 
 ```gradle
@@ -70,3 +70,5 @@ bottomBar.init(NavObject(
     // primaryClicked returns true if primary button is clicked and position returned is -1
 }
 ```
+
+Check example app for full usage.
