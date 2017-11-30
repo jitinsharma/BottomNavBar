@@ -63,7 +63,7 @@ publishing {
             artifactId 'bottomnavbar'
             version android.defaultConfig.versionName
             artifact(sourcesJar)
-            artifact("$buildDir/outputs/aar/bottomnavbar-debug.aar")
+            artifact("$buildDir/outputs/aar/bottomnavbar-release.aar")
         }
     }
 }
