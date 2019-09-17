@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.Gravity
@@ -17,6 +16,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import io.github.jitinsharma.bottomnavbar.model.CustomProps
 import io.github.jitinsharma.bottomnavbar.model.NavObject
 import kotlinx.android.synthetic.main.bottom_nav_bar.view.*
@@ -27,16 +27,16 @@ import kotlinx.android.synthetic.main.bottom_nav_bar.view.*
 @Suppress("MemberVisibilityCanPrivate")
 @SuppressLint("NewApi")
 class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attrs) {
-    private var weight : Float = 20.0f
-    private var itemSize : Int = 0
-    private val properties : CustomProps = CustomProps()
-    private var coloredItemIndex : Int = -1
+    private var weight: Float = 20.0f
+    private var itemSize: Int = 0
+    private val properties: CustomProps = CustomProps()
+    private var coloredItemIndex: Int = -1
 
     init {
         val typedArray = context.theme.obtainStyledAttributes(
                 attrs,
                 R.styleable.BottomNavBar,
-                0,0
+                0, 0
         )
         setSecondaryTextColor(typedArray.getColor(
                 R.styleable.BottomNavBar_secondary_txt_color,
@@ -61,8 +61,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
     }
 
     private fun inflate() {
-        val layoutInflater : LayoutInflater = context.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         layoutInflater.inflate(R.layout.bottom_nav_bar, this, true)
     }
 
@@ -75,7 +74,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
      */
     fun init(primaryNavObject: NavObject,
              secondaryNavObjects: List<NavObject>,
-             listener : (position : Int, primaryClicked : Boolean) -> Unit) {
+             listener: (position: Int, primaryClicked: Boolean) -> Unit) {
         setSizeVariables(secondaryNavObjects)
         setItemStrip()
         setUpPrimaryItem(primaryNavObject)
@@ -94,8 +93,8 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
                     setColorToCurrentItem(child)
                 }
                 when {
-                    k > itemSize/2 -> listener(k-1,false)
-                    else -> listener(k,false)
+                    k > itemSize / 2 -> listener(k - 1, false)
+                    else -> listener(k, false)
                 }
             }
         }
@@ -115,7 +114,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         }
     }
 
-    private fun setColorToCurrentItem(child : View) {
+    private fun setColorToCurrentItem(child: View) {
         coloredItemIndex = itemStrip.indexOfChild(child)
         val layout = child as LinearLayout
         val image = layout.findViewById<ImageView>(R.id.navItemImage)
@@ -124,7 +123,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         image.setColorFilter(properties.secondaryItemClickedColor, PorterDuff.Mode.SRC_ATOP)
     }
 
-    private fun resetColoredItem(currentItemIndex : Int) {
+    private fun resetColoredItem(currentItemIndex: Int) {
         if (currentItemIndex != coloredItemIndex && coloredItemIndex != -1) {
             val layout = itemStrip.getChildAt(coloredItemIndex) as LinearLayout
             val image = layout.findViewById<ImageView>(R.id.navItemImage)
@@ -134,7 +133,26 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         }
     }
 
-    private fun setSizeVariables(navObjects : List<NavObject>) {
+    fun setCurrentItem(position: Int) {
+        coloredItemIndex = position
+        val layout = itemStrip.getChildAt(position) as LinearLayout
+        val image = layout.findViewById<ImageView>(R.id.navItemImage)
+        val text = layout.findViewById<TextView>(R.id.navItemText)
+        text.setTextColor(properties.secondaryItemClickedColor)
+        image.setColorFilter(properties.secondaryItemClickedColor, PorterDuff.Mode.SRC_ATOP)
+    }
+
+    fun resetAll() {
+        for (i in 0 until itemStrip.childCount) {
+            val layout = itemStrip.getChildAt(i) as LinearLayout
+            val image = layout.findViewById<ImageView>(R.id.navItemImage)
+            val text = layout.findViewById<TextView>(R.id.navItemText)
+            text.setTextColor(properties.secondaryTextColor)
+            image.setColorFilter(properties.secondaryTextColor, PorterDuff.Mode.SRC_ATOP)
+        }
+    }
+
+    private fun setSizeVariables(navObjects: List<NavObject>) {
         itemSize = navObjects.size
         when {
             itemSize % 2 != 0 -> {
@@ -157,7 +175,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
     private fun setUpPrimaryItem(primaryNavObject: NavObject) {
         primaryText.text = primaryNavObject.name
         primaryButton.setImageDrawable(primaryNavObject.image)
-        val gradient : GradientDrawable = primaryButton.background as GradientDrawable
+        val gradient: GradientDrawable = primaryButton.background as GradientDrawable
         gradient.setColor(properties.primaryButtonBg)
         primaryText.setTextColor(properties.primaryTextColor)
         lollipopAndAbove {
@@ -165,10 +183,10 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         }
     }
 
-    private fun setUpSecondaryItems(navObjects : List<NavObject>) {
-        navObjects.forEach { navObject : NavObject ->
+    private fun setUpSecondaryItems(navObjects: List<NavObject>) {
+        navObjects.forEach { navObject: NavObject ->
             val navItem = NavItem(context, null)
-            val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(0,
+            val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(0,
                     LinearLayout.LayoutParams.WRAP_CONTENT)
             params.weight = weight
             navItem.layoutParams = params
@@ -180,41 +198,41 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
 
     private fun addDummyView() {
         val navItem = NavItem(context, null)
-        val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(0,
+        val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(0,
                 LinearLayout.LayoutParams.WRAP_CONTENT)
         params.weight = weight
         navItem.layoutParams = params
         navItem.gravity = Gravity.CENTER_HORIZONTAL
         navItem.visibility = View.INVISIBLE
         navItem.isClickable = false
-        itemStrip.addView(navItem, itemSize/2)
+        itemStrip.addView(navItem, itemSize / 2)
     }
 
     /**
      * Setters
      */
 
-    fun setSecondaryTextColor(color : Int) {
+    fun setSecondaryTextColor(color: Int) {
         properties.secondaryTextColor = color
     }
 
-    fun setPrimaryTextColor(color : Int) {
+    fun setPrimaryTextColor(color: Int) {
         properties.primaryTextColor = color
     }
 
-    fun setPrimaryButtonBackground(color : Int) {
+    fun setPrimaryButtonBackground(color: Int) {
         properties.primaryButtonBg = color
     }
 
-    fun setLineColor(color : Int) {
+    fun setLineColor(color: Int) {
         properties.lineColor = color
     }
 
-    fun setStripBackground(color : Int) {
+    fun setStripBackground(color: Int) {
         properties.stripBg = color
     }
 
-    fun setSecondaryItemClickedColor(color : Int) {
+    fun setSecondaryItemClickedColor(color: Int) {
         properties.secondaryItemClickedColor = color
     }
 
@@ -227,7 +245,7 @@ class BottomNavBar(c: Context?, attrs: AttributeSet?) : ConstraintLayout(c, attr
         return Math.round(this * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).toFloat()
     }
 
-    private inline fun lollipopAndAbove(body : () -> Unit) {
+    private inline fun lollipopAndAbove(body: () -> Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             body()
         }
